@@ -9,6 +9,9 @@ You will form groups of two for this project. Your project should allow for inte
 ## Deliverables
 
 Printed copy of Java code written to support this project
+
 Printed copy of DDL used to create the tables, keys and other constraints
+
 Printed copy of Examples of the output for each query stated above.
+
 Demonstration of all project functionality by both team members.
