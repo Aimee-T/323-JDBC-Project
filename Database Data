@@ -1,0 +1,47 @@
+-- Inserting data into table 'WritingGroups
+INSERT INTO WritingGroups
+    (GroupName, HeadWriter, YearFormed, Subject)
+    VALUES('History Buffs', 'John Doe', 2007, 'History');
+INSERT INTO WritingGroups
+    (GroupName, HeadWriter, YearFormed, Subject)
+    VALUES('Science Fiction Life', 'Jane Doe', 1980, 'Science Fiction');
+INSERT INTO WritingGroups
+    (GroupName, HeadWriter, YearFormed, Subject)
+    VALUES('Fictious Fiction', 'Josh Mark', 2010, 'Fiction');
+INSERT INTO WritingGroups
+    (GroupName, HeadWriter, YearFormed, Subject)
+    VALUES('Whose Bio?', 'Kevin Cho', 2003, 'Biography');
+
+SELECT * FROM WritingGroups;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-- Inserting data into table 'Publishers'
+INSERT INTO Publishers
+    (PublisherName, PublisherAddress, PublisherPhone, PublisherEmail)
+    VALUES ('Will Norton', '124 Real St.', '5621234567', 'norton@gmail.com');
+INSERT INTO Publishers
+    (PublisherName, PublisherAddress, PublisherPhone, PublisherEmail)
+    VALUES ('Neil Wong', '125 Real St.', '5621234568', 'wong@gmail.com');
+INSERT INTO Publishers
+    (PublisherName, PublisherAddress, PublisherPhone, PublisherEmail)
+    VALUES ('Anel Ruiz', '126 Real St.', '5621234569', 'ruiz@gmail.com');
+INSERT INTO Publishers
+    (PublisherName, PublisherAddress, PublisherPhone, PublisherEmail)
+    VALUES ('Sergio Perez', '127 Real St.', '5621234560', 'perez@gmail.com');
+
+SELECT * FROM Publishers;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-- Inserting data into book table
+INSERT INTO Books
+    (GroupName, BookTitle, PublisherName, YearPublished, NumberPages)
+    VALUES ('History Buffs', 'The 1987', 'Will Norton', 2007, 1987);
+INSERT INTO Books
+    (GroupName, BookTitle, PublisherName, YearPublished, NumberPages)
+    VALUES ('History Buffs', 'World War II', 'Anel Ruiz', 2008, 2000);
+INSERT INTO Books
+    (GroupName, BookTitle, PublisherName, YearPublished, NumberPages)
+    VALUES ('Science Fiction Life', 'Real Monsters', 'Sergio Perez', 1990, 500);
+INSERT INTO Books
+    (GroupName, BookTitle, PublisherName, YearPublished, NumberPages)
+    VALUES ('Whose Bio?', 'John F. Kennedy', 'Neil Wong', 2004, 1000);
+
+SELECT * FROM Books
