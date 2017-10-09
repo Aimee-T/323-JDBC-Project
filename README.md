@@ -6,7 +6,8 @@ You will form groups of two for this project. Your project should allow for inte
 ![writinggroupsrelscheme](https://user-images.githubusercontent.com/9468502/31323131-f0509fd2-ac57-11e7-806c-951996946aa6.jpg)
 
 
-#Deliverables
+## Deliverables
+
 Printed copy of Java code written to support this project
 Printed copy of DDL used to create the tables, keys and other constraints
 Printed copy of Examples of the output for each query stated above.
