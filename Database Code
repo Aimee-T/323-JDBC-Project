@@ -1,1 +1,42 @@
-//Done using Derby
+-- Create the table for writing groups (Parent)
+CREATE TABLE WritingGroups(GroupName  varchar(30) NOT NULL, 
+                           HeadWriter varchar(30) NOT NULL, 
+                           YearFormed integer,
+                           Subject    varchar(30));
+
+-- Specify primary key for table 'WritingGroups'
+ALTER TABLE WritingGroups 
+    ADD CONSTRAINT WritingGroups_PK
+    PRIMARY KEY (GroupName);
+
+-- Create the table for publishers (Parent)
+CREATE TABLE Publishers(PublisherName    varchar(30) NOT NULL, 
+                        PublisherAddress varchar(30), 
+                        PublisherPhone   varchar(11),
+                        PublisherEmail   varchar(30));
+
+-- Specify primary key for table 'Publishers'
+ALTER TABLE Publishers 
+    ADD CONSTRAINT Publishers_PK
+    PRIMARY KEY (PublisherName);
+
+-- Create the table for Books (Child)
+CREATE TABLE Books(GroupName     varchar(30) NOT NULL, 
+                   BookTitle     varchar(30) NOT NULL, 
+                   PublisherName varchar(30),
+                   YearPublished integer,
+                   NumberPages   integer);
+
+ALTER TABLE Books
+          ADD CONSTRAINT Books_PK
+          PRIMARY KEY (GroupName, BookTitle);
+
+ALTER TABLE Books
+          ADD CONSTRAINT Books_FK1
+          FOREIGN KEY (GroupName)
+          REFERENCES WritingGroups (GroupName);
+ALTER TABLE Books
+          ADD CONSTRAINT Books_FK2
+          FOREIGN KEY (PublisherName)
+          REFERENCES Publishers (PublisherName);
+          
