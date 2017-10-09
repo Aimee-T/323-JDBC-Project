@@ -26,11 +26,13 @@ CREATE TABLE Books(GroupName     varchar(30) NOT NULL,
                    PublisherName varchar(30),
                    YearPublished integer,
                    NumberPages   integer);
-
+                   
+-- Specify primary keys for table 'Books'
 ALTER TABLE Books
           ADD CONSTRAINT Books_PK
           PRIMARY KEY (GroupName, BookTitle);
 
+-- Speficy foreign keys for table 'Books'
 ALTER TABLE Books
           ADD CONSTRAINT Books_FK1
           FOREIGN KEY (GroupName)
