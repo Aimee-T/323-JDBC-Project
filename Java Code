@@ -60,6 +60,19 @@ public class JDBC_Proj {
             System.out.println("Creating statement...");
             stmt = conn.createStatement();
             String sql;
+            //*******************************************************
+             // INSERTING RECORDS
+              System.out.println("Inserting records into the table...");
+              //stmt = conn.createStatement();
+
+              sql = "INSERT INTO WritingGroups " +
+                           "VALUES ('Test1Name','Test1Writer', 2017, 'Test1Subject')";
+              stmt.executeUpdate(sql);
+              sql = "INSERT INTO WritingGroups " +
+                           "VALUES ('Test2Name','Test2Writer', 2017, 'Test2Subject')";
+              stmt.executeUpdate(sql);
+              System.out.println("Inserted records into the table...");
+             //*******************************************************
             sql = "SELECT GroupName, HeadWriter, YearFormed, Subject FROM WritingGroups";
             ResultSet rs = stmt.executeQuery(sql);
 
