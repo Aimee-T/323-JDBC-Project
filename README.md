@@ -17,12 +17,10 @@ You will form groups of two for this project. Your project should allow for inte
   * This includes all the data for the associated publisher and writing group.
   * Insert a new book
   * Insert a new publisher and update all book published by one publisher to be published by the new pubisher.
-  
-  ?
   * This requirement is two separate operations. The idea is that a new publisher, (xyz) buys out an existing publisher (abc). After the new publisher is added to the database, all books that are currently published by abc will now be published by xyz. 
   
-  ?
-  * Since this requirement is two parts and the second part cannot be executed without successful completion of the first part, you will need to enclose both parts in a transaction.
+   ? - Part 1: Inserting a new publisher
+       Part 2: Update the system with the new publisher
   * Remove a book specified by the user
 * For all queries involving user input, you must use prepared statements
 * You must be able to prove your results after each query
