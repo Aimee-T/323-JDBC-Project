@@ -2,7 +2,7 @@ import java.sql.*;
 import java.util.Scanner;
 
 /**
- * @author Aimee (Using Mimi's base code)
+ * @author 
  */
 public class JDBC_Proj {
     //  Database credentials
@@ -46,11 +46,13 @@ public class JDBC_Proj {
         PASS = in.nextLine();
         //Constructing the database URL connection string
         DB_URL = DB_URL + DBNAME + ";user="+ USER + ";password=" + PASS;
+       
         Connection conn = null; //initialize the connection
         Statement stmt = null;  //initialize the statement that we're using
-        PreparedStatement pstmt = null; // intialize the prepared statement
-        
+        PreparedStatement pstmt = null; // iintialize the prepated statement
+
         try {
+            
             //STEP 2: Register JDBC driver
             Class.forName("org.apache.derby.jdbc.ClientDriver");
 
@@ -62,22 +64,40 @@ public class JDBC_Proj {
             System.out.println("Creating statement...");
             stmt = conn.createStatement();
             String sql;
-            //*******************************************************
+             //*******************************************************
              // INSERTING RECORDS
-              System.out.println("Inserting records into the table...");
-              //stmt = conn.createStatement();
-
-              sql = "INSERT INTO WritingGroups " +
-                           "VALUES ('Test1Name','Test1Writer', 2017, 'Test1Subject')";
-              stmt.executeUpdate(sql);
-              sql = "INSERT INTO WritingGroups " +
-                           "VALUES ('Test2Name','Test2Writer', 2017, 'Test2Subject')";
-              stmt.executeUpdate(sql);
-              System.out.println("Inserted records into the table...");
+////              System.out.println("Inserting records into the table...");
+////              //stmt = conn.createStatement();
+////
+////              sql = "INSERT INTO WritingGroups " +
+////                           "VALUES ('Test1Name','Test1Writer', 2017, 'Test1Subject')";
+////              stmt.executeUpdate(sql);
+////              sql = "INSERT INTO WritingGroups " +
+////                           "VALUES ('Test2Name','Test2Writer', 2017, 'Test2Subject')";
+////              stmt.executeUpdate(sql);
+////              System.out.println("Inserted records into the table...");
              //*******************************************************
              // PREPARED STATEMENT
-             String SQL = "Update WritingGroups SET GroupName = ? WHERE Subject = ?";
+             //String SQL = "Update WritingGroups SET GroupName = ? WHERE Subject = ?";
+             String SQL = "INSERT INTO WritingGroups VALUES (?, ?, ?, ?)";
              pstmt = conn.prepareStatement(SQL);
+             //*******************************************************
+             //READ INPUT FROM USER
+             System.out.println("Input a name: ");
+             Scanner scan = new Scanner(System.in);
+             String gname = scan.next();
+             System.out.println("Input a writer: ");
+             String gwriter = scan.next();
+             System.out.println("Input a year: ");
+             int gyear = scan.nextInt();
+             System.out.println("Input a subject: ");
+             String gsub = scan.next();
+             pstmt.setString(1, gname); //CHANGE //Test1Name Test1Writer 2017 Test1Subject
+             pstmt.setString(2, gsub);
+             pstmt.setInt(3, gyear);
+             pstmt.setString(4, gsub);
+             //int i = scan.nextInt();
+             int rows = pstmt.executeUpdate();
              //*******************************************************
             sql = "SELECT GroupName, HeadWriter, YearFormed, Subject FROM WritingGroups";
             ResultSet rs = stmt.executeQuery(sql);
@@ -130,4 +150,3 @@ public class JDBC_Proj {
         }//end try
     }  
 }
-
