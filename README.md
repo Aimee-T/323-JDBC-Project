@@ -26,7 +26,7 @@ You will form groups of two for this project. Your project should allow for inte
 * You must be able to prove your results after each query
 * Make sure to validate the data either through the java code or database constraints
 
-?
+? - Validated through database
 * Make sure you handle any SQLExceptions that are thrown
 * Use must use your NetBeans/Derby database for this project
 * Make sure you have enough sample data to properly demonstrate your project
