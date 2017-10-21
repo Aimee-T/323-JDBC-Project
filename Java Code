@@ -1,20 +1,28 @@
-package jdbc.project;
+//package jdbc.project;
 
 import java.sql.*;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /*
- * @author Aimee
+ * @author Agaby
  */
 public class JDBCProject {
     static String USER;
     static String PASS;
     static String DBNAME;
     static final String displayFormat="%-5s%-15s%-15s%-15s\n"; //Explicitly initialized once
-    
+ 
+            
+//    final static String sql ="SELECT GroupName, HeadWriter, YearFormed, Subject FROM WritingGroups";
+//    static Connection conn = null; //initialize the connection
+//    static Statement stmt = null;  //initialize the statement that we're using
+//    static ResultSet rs = stmt.executeQuery(sql);
+
     // JDBC driver name and database URL
-    //static final String JDBC_DRIVER = "org.apache.derby.jdbc.ClientDriver";
-    //static String DB_URL = "jdbc:derby://localhost:1527/";
+    static final String JDBC_DRIVER = "org.apache.derby.jdbc.ClientDriver";
+    static String DB_URL = "jdbc:derby://localhost:1527/";
     
     /*
     * Takes the input string and outputs "N/A" if the string is empty or null.
@@ -27,9 +35,11 @@ public class JDBCProject {
             return "N/A";
         else
             return input;
+ 
     }
-
+           
     public static void main(String[] args) {
+        
         /*
         *Prompt the user for the database name, and the credentials.
         *If your database has no credentials, you can update this code to
@@ -43,40 +53,150 @@ public class JDBCProject {
         System.out.print("Database password: ");
         PASS = in.nextLine();
         DB_URL = DB_URL + DBNAME + ";user="+ USER + ";password=" + PASS;
+        
         Connection conn = null; //initialize the connection
-        Statement stmt = null;  //initialize the statement that we're using
+        //Statement stmt = null, stmt2=null, stmt3=null;  //initialize the statement that we're using
+       //menu();
+        PreparedStatement  stmt = null, stmt2=null, stmt3=null;  //initialize the statement that we're using
+        ResultSet rs=null ,rs2=null,rs3=null;
+        String gname="";
         try {
             //STEP 2: Register JDBC driver
-            //Class.forName("org.apache.derby.jdbc.ClientDriver");
+            Class.forName("org.apache.derby.jdbc.ClientDriver"); //why was this commented?
 
             //STEP 3: Open a connection
             System.out.println("Connecting to database...");
             conn = DriverManager.getConnection(DB_URL);
 
             //STEP 4: Execute a query
+            
             System.out.println("Creating statement...");
-            stmt = conn.createStatement();
-            String sql;
-            sql = "SELECT GroupName, HeadWriter, YearFormed, Subject FROM WritingGroups";
-            ResultSet rs = stmt.executeQuery(sql);
+            
+            
+           /* 
+            String sql = "SELECT GroupName, HeadWriter, YearFormed, Subject FROM WritingGroups where GroupName=?";   
+                    stmt =conn.prepareStatement(sql);
+                    System.out.println("Enter a group name ");
+                    String name=in.nextLine();
+                    stmt.setString(1, name);
+                    rs = stmt.executeQuery();
+                    while(rs.next())
+                    {
+                        String GroupName = rs.getString("GroupName");
+                        String HeadWriter = rs.getString("HeadWriter");
+                        String YearFormed = rs.getString("YearFormed");
+                        String Subject = rs.getString("Subject");
+                        System.out.println("GroupName= "+GroupName +" HeadWriter= "+HeadWriter+ " YearFormed= "+YearFormed+" Subject= "+Subject );
+                      
+                    }
+            */
+            
+            
+            
+            System.out.println("Do you want to do user input y/n");
+            char a=in.next().charAt(0);
+        while(a=='y'){
+            System.out.println("choose one of the following: \n"
+                    + "1. group name \n"
+                    + "2. publisher name \n"
+                    + "3. book title");
+            int c=in.nextInt();
+           
+            switch(c){
+                case 1: 
+                    String sql1 = "SELECT GroupName, HeadWriter, YearFormed, Subject FROM WritingGroups where GroupName=?";   
+                    stmt =conn.prepareStatement(sql1);
+                    System.out.println("Enter a group name ");
+                    in.nextLine();
+                    gname=in.nextLine();
+                    System.out.println("gname= "+ gname);
+                    stmt.setString(1, gname);
+                    rs = stmt.executeQuery();
+                    while(rs.next())
+                    {
+                        String GroupName = rs.getString("GroupName");
+                        String HeadWriter = rs.getString("HeadWriter");
+                        String YearFormed = rs.getString("YearFormed");
+                        String Subject = rs.getString("Subject");
+                        System.out.println("GroupName= "+GroupName +"HeadWriter= "+HeadWriter+ "YearFormed= "+YearFormed+"Subject= "+Subject );
+                      
+                    }
+                break;
+                case 2: 
+                    String sql2= "SELECT PublisherName,PublisherAddress,PublisherPhone, PublisherEmail FROM Publishers where PublisherName=? ";
+                    stmt2= conn.prepareStatement(sql2);
+                    System.out.println("Enter a publisher name ");
+                    in.nextLine();
+                    String pubName=in.nextLine();
+                    System.out.println("pname= "+pubName);
+                    stmt2.setString(1, pubName);
+                    rs2= stmt2.executeQuery();
+                    while(rs2.next())
+                    {
+                        String PublisherName=rs2.getString("PublisherName");
+                        String PublisherAddress=rs2.getString("PublisherAddress");
+                        String PublisherPhone= rs2.getString("PublisherPhone");
+                        String PublisherEmail=rs2.getString("PublisherEmail");
+                        System.out.println("PublisherName= "+PublisherName+"PublisherAddress= "+PublisherAddress
+                                        +"PublisherPhone= "+PublisherPhone+"PublisherEmail= "+PublisherEmail);
 
-            //STEP 5: Extract data from result set
-            System.out.printf(displayFormat, "Group Name", "Head Writer", "Year Formed", "Subject");
-            while (rs.next()) {
-                //Retrieve by column name
-                String GroupName = rs.getString("GroupName");
-                String HeadWriter = rs.getString("HeadWriter");
-                String YearFormed = rs.getString("YearFormed");
-                String Subject = rs.getString("Subject");
-
-                //Display values
-                System.out.printf(displayFormat,
-                        dispNull(GroupName), dispNull(HeadWriter), dispNull(YearFormed), dispNull(Subject));
+                    }
+                break;
+                case 3:
+                   String sql3="SELECT BookTitle,YearPublished, NumberPages FROM Books where BookTitle=? ";
+                   stmt3= conn.prepareStatement(sql3);
+                   System.out.println("Enter a book title ");
+                   in.nextLine();
+                   String bname=in.nextLine();
+                    System.out.println("bname= "+bname);
+                   stmt3.setString(1, bname);
+                   rs3= stmt3.executeQuery();
+                   while(rs3.next())
+                   {
+                       String BookTitle = rs3.getString("BookTitle");
+                       String YearPublished= rs3.getString("YearPublished");
+                       String NumOfPgs= rs3.getString("NumberPages");
+                       System.out.println("BookTitle= "+BookTitle+" YearPublished= "+YearPublished+" NumberPages= "+NumOfPgs);
+                    
+                   }
+                break;
             }
+             System.out.println("Do you want to do user input again y/n");
+             a=in.next().charAt(0);
+            if(a=='n')
+            {
+                System.out.println("Bye");
+                break;
+            }
+           
+        }   
+            
+            //STEP 5: Extract data from result set
+            System.out.printf(displayFormat, "Group Name       ", "Head Writer       ", "Year Formed       ", "Subject       ");
+//            stmt =conn.prepareStatement("SELECT GroupName, HeadWriter, YearFormed, Subject FROM WritingGroups where GroupName=?");
+//            stmt.setInt(1, 00000101);
+//             rs = stmt.executeQuery();
+//            while (rs.next()) {
+//                //Retrieve by column name
+//                String GroupName = rs.getString("GroupName");
+//                String HeadWriter = rs.getString("HeadWriter");
+//                String YearFormed = rs.getString("YearFormed");
+//                String Subject = rs.getString("Subject");
+//
+//                //Display values
+//                System.out.printf(displayFormat,
+//                        dispNull(GroupName)+"       ", dispNull(HeadWriter)+"       ",
+//                        dispNull(YearFormed)+"       ", dispNull(Subject)+"       ");
+//            }
             //STEP 6: Clean-up environment
             rs.close();
+            rs2.close();
+            rs3.close();
+            stmt2.close();
+            stmt3.close();
             stmt.close();
             conn.close();
+            in.close();
         } catch (SQLException se) {
             //Handle errors for JDBC
             se.printStackTrace();
@@ -100,4 +220,8 @@ public class JDBCProject {
             }//end finally try
         }//end try
     }  
+
+    private static Connection getConnection() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
