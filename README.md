@@ -13,9 +13,9 @@ You will form groups of two for this project. Your project should allow for inte
   - [x] List all publishers
   - [x] List all the data for a pubisher specified by the user
   - [x] List all book titles
-  - [ ] List all the data for a book specified by the user.
-  - [ ] This includes all the data for the associated publisher and writing group.
-  - [ ] Insert a new book
+  - [x] List all the data for a book specified by the user.
+  - [x] This includes all the data for the associated publisher and writing group.
+  - [x] Insert a new book
   - [ ] Insert a new publisher and update all book published by one publisher to be published by the new pubisher.
   - [ ] This requirement is two separate operations. The idea is that a new publisher, (xyz) buys out an existing publisher (abc). After the new publisher is added to the database, all books that are currently published by abc will now be published by xyz. 
   
