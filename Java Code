@@ -57,9 +57,9 @@ public class JDBCProject {
         Connection conn = null; //initialize the connection
         //Statement stmt = null, stmt2=null, stmt3=null;  //initialize the statement that we're using
        //menu();
-        PreparedStatement  stmt = null, stmt2=null, stmt3=null;  //initialize the statement that we're using
+        PreparedStatement  stmt = null, stmt2=null, stmt3=null, pstmt=null;  //initialize the statement that we're using
         ResultSet rs=null ,rs2=null,rs3=null;
-        String gname="";
+     
         try {
             //STEP 2: Register JDBC driver
             Class.forName("org.apache.derby.jdbc.ClientDriver"); //why was this commented?
@@ -72,27 +72,7 @@ public class JDBCProject {
             
             System.out.println("Creating statement...");
             
-            
-           /* 
-            String sql = "SELECT GroupName, HeadWriter, YearFormed, Subject FROM WritingGroups where GroupName=?";   
-                    stmt =conn.prepareStatement(sql);
-                    System.out.println("Enter a group name ");
-                    String name=in.nextLine();
-                    stmt.setString(1, name);
-                    rs = stmt.executeQuery();
-                    while(rs.next())
-                    {
-                        String GroupName = rs.getString("GroupName");
-                        String HeadWriter = rs.getString("HeadWriter");
-                        String YearFormed = rs.getString("YearFormed");
-                        String Subject = rs.getString("Subject");
-                        System.out.println("GroupName= "+GroupName +" HeadWriter= "+HeadWriter+ " YearFormed= "+YearFormed+" Subject= "+Subject );
-                      
-                    }
-            */
-            
-            
-            
+            //***********************************Taking User input and displaying that specific row **********************************
             System.out.println("Do you want to do user input y/n");
             char a=in.next().charAt(0);
         while(a=='y'){
@@ -106,10 +86,10 @@ public class JDBCProject {
                 case 1: 
                     String sql1 = "SELECT GroupName, HeadWriter, YearFormed, Subject FROM WritingGroups where GroupName=?";   
                     stmt =conn.prepareStatement(sql1);
-                    System.out.println("Enter a group name ");
+                    System.out.println("Here are the grup names in the writing groups table: History Buffs,Science Fiction Life, Fictious Fiction, Whose Bio? ");
+                    System.out.println("Type in one of the group names from above ");
                     in.nextLine();
-                    gname=in.nextLine();
-                    System.out.println("gname= "+ gname);
+                    String gname=in.nextLine();
                     stmt.setString(1, gname);
                     rs = stmt.executeQuery();
                     while(rs.next())
@@ -125,10 +105,10 @@ public class JDBCProject {
                 case 2: 
                     String sql2= "SELECT PublisherName,PublisherAddress,PublisherPhone, PublisherEmail FROM Publishers where PublisherName=? ";
                     stmt2= conn.prepareStatement(sql2);
-                    System.out.println("Enter a publisher name ");
+                    System.out.println("Here are the publisher names form the publishers table: Will Norton, Neil Wong, Anel Ruiz, Sergio Perez");
+                    System.out.println("Type in one of the  publisher names from above");
                     in.nextLine();
                     String pubName=in.nextLine();
-                    System.out.println("pname= "+pubName);
                     stmt2.setString(1, pubName);
                     rs2= stmt2.executeQuery();
                     while(rs2.next())
@@ -143,9 +123,14 @@ public class JDBCProject {
                     }
                 break;
                 case 3:
-                   String sql3="SELECT BookTitle,YearPublished, NumberPages FROM Books where BookTitle=? ";
+                   String sql3="SELECT BookTitle, YearPublished, NumberPages, "
+                           + "GroupName, HeadWriter, YearFormed, Subject, "
+                           + "PublisherName, PublisherAddress, PublisherPhone, PublisherEmail "
+                           + "from Books natural join  WRITINGGROUPS natural join PUBLISHERS  where BookTitle=?";
+//                 String sql4="Select BookTitle, YearPublished, NumberPages, GroupName, PublisherName from books where BookTitle=?";
                    stmt3= conn.prepareStatement(sql3);
-                   System.out.println("Enter a book title ");
+                   System.out.println("Here are the book titles from the books table: The 1987, World War II, Real Monsters, John F. Kennedy ");
+                   System.out.println("Type in one of the book titles from above");
                    in.nextLine();
                    String bname=in.nextLine();
                     System.out.println("bname= "+bname);
@@ -153,10 +138,24 @@ public class JDBCProject {
                    rs3= stmt3.executeQuery();
                    while(rs3.next())
                    {
-                       String BookTitle = rs3.getString("BookTitle");
-                       String YearPublished= rs3.getString("YearPublished");
-                       String NumOfPgs= rs3.getString("NumberPages");
-                       System.out.println("BookTitle= "+BookTitle+" YearPublished= "+YearPublished+" NumberPages= "+NumOfPgs);
+                       String BookTitle=rs3.getString("BookTitle");
+                       String YearPublished = rs3.getString("YearPublished");
+                       String NumberPages= rs3.getString("NumberPages");
+                       String GroupName= rs3.getString("GroupName");
+                       String HeadWriter=rs3.getString("HeadWriter");
+                       String YearFormed=rs3.getString("YearFormed");
+                       String Subject=rs3.getString("Subject");
+                       String PublisherName=rs3.getString("PublisherName");
+                       String PublisherAddress=rs3.getString("PublisherAddress");
+                       String PublisherPhone= rs3.getString("PublisherPhone");
+                       String PublisherEmail=rs3.getString("PublisherEmail");
+                        
+//                       System.out.println("BookTitle= "+BookTitle+" YearPublished= "+" NumberPages= "+ NumberPages+" GroupName= "+GroupName+" PublisherName= "+PublisherName);
+                       System.out.println("BookTitle= "+BookTitle +" YearPublished= "+YearPublished+
+                               " NumberPages= "+NumberPages+" GroupName= "+GroupName+ " HeadWriter= "+HeadWriter +" YearFormed= "
+                               +YearFormed+" Subject= " +Subject+ " PublisherName= "+PublisherName
+                                       + " PublisherAddress= "+PublisherAddress+ " PublisherPhone "
+                                       +PublisherPhone+" PublisherEmail= "+PublisherEmail);
                     
                    }
                 break;
@@ -170,6 +169,54 @@ public class JDBCProject {
             }
            
         }   
+        //*******Update WritingGroups*************
+            System.out.println("Do you want to insert into the records? y/n");
+            char ans=in.next().charAt(0);
+            while(ans=='y')
+            {
+                 System.out.println("Inserting records into the table...");
+              // PREPARED STATEMENT
+             String PUpdateSQL = "Update WritingGroups SET GroupName = ? WHERE Subject = ?";
+             String PInsertSQL = "INSERT INTO WritingGroups VALUES (?, ?, ?, ?)";
+             pstmt = conn.prepareStatement(PInsertSQL);
+             //*******************************************************
+             //READ INPUT FROM USER
+             System.out.println("Input a name: ");
+             Scanner scan = new Scanner(System.in);
+             String gname = scan.next();
+             System.out.println("Input a writer: ");
+             String gwriter = scan.next();
+             System.out.println("Input a year: ");
+             int gyear = scan.nextInt();
+             System.out.println("Input a subject: ");
+             String gsub = scan.next();
+             pstmt.setString(1, gname); //CHANGE //Test1Name Test1Writer 2017 Test1Subject
+             pstmt.setString(2, gwriter);//tell Aimee she had the subject here--repeated
+             pstmt.setInt(3, gyear);
+             pstmt.setString(4, gsub);
+             //int i = scan.nextInt();
+             pstmt.executeUpdate();
+              //*******************************************************
+             //DISPLAY INFROMATION FROM TABLE
+            String Selectsql = "SELECT GroupName, HeadWriter, YearFormed, Subject FROM WritingGroups";
+            ResultSet rs4 = stmt.executeQuery(Selectsql);
+            while(rs4.next())
+            {
+             String GroupName = rs4.getString("GroupName");
+             String HeadWriter = rs4.getString("HeadWriter");
+             String YearFormed = rs4.getString("YearFormed");
+             String Subject = rs4.getString("Subject");
+             System.out.println("GroupName= "+GroupName +"HeadWriter= "+HeadWriter+ "YearFormed= "+YearFormed+"Subject= "+Subject );
+                      
+            }
+        //**********Update publishers**********************
+            String PUpdateSQL2 = "Update Publishers SET PublisherName = ? WHERE Subject = ?";
+            String PInsertSQL2 = "INSERT INTO Publishers VALUES (?, ?, ?, ?)";
+            
+
+            }
+        
+        
             
             //STEP 5: Extract data from result set
             System.out.printf(displayFormat, "Group Name       ", "Head Writer       ", "Year Formed       ", "Subject       ");
