@@ -8,23 +8,23 @@ You will form groups of two for this project. Your project should allow for inte
 ## TO DO
 * Create a .sql file for the DDL and run this script to create the database, tables, etc.
 * Write a JDBC program to support the following functions:
-  ~~* List all writing groups~~
-  ~~* List all the data for a group specified by the user~~
-  ~~* List all publishers~~
-  ~~* List all the data for a pubisher specified by the user~~
-  ~~* List all book titles~~
-  ~~* List all the data for a book specified by the user.~~
-  * This includes all the data for the associated publisher and writing group.
-  * Insert a new book
-  * Insert a new publisher and update all book published by one publisher to be published by the new pubisher.
-  * This requirement is two separate operations. The idea is that a new publisher, (xyz) buys out an existing publisher (abc). After the new publisher is added to the database, all books that are currently published by abc will now be published by xyz. 
+  - [x] List all writing groups
+  - [x] List all the data for a group specified by the user
+  - [x] List all publishers
+  - [x] List all the data for a pubisher specified by the user
+  - [x] List all book titles
+  - [ ] List all the data for a book specified by the user.
+  - [ ] This includes all the data for the associated publisher and writing group.
+  - [ ] Insert a new book
+  - [ ] Insert a new publisher and update all book published by one publisher to be published by the new pubisher.
+  - [ ] This requirement is two separate operations. The idea is that a new publisher, (xyz) buys out an existing publisher (abc). After the new publisher is added to the database, all books that are currently published by abc will now be published by xyz. 
   
    ? - Part 1: Inserting a new publisher
        Part 2: Update the system with the new publisher
-  * Remove a book specified by the user
-* For all queries involving user input, you must use prepared statements
-* You must be able to prove your results after each query
-* Make sure to validate the data either through the java code or database constraints
+  - [ ] Remove a book specified by the user
+- [ ] For all queries involving user input, you must use prepared statements
+- [ ] You must be able to prove your results after each query
+- [ ] Make sure to validate the data either through the java code or database constraints
 
 ? - Validated through database
 * Make sure you handle any SQLExceptions that are thrown
