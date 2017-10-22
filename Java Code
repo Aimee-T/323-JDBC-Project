@@ -158,4 +158,105 @@ public class JDBC_Proj {
             }//end finally try
         }//end try
     }  
+        //FUNCTION TO DISPLAY GROUPS
+        public static void displayGroups (Connection conn) throws SQLException
+        {
+            Statement stmt = null;
+            String Selectsql = "SELECT GroupName, HeadWriter, YearFormed, Subject FROM WritingGroups";
+            stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(Selectsql);
+            
+            System.out.printf("DISPLAYING GROUP TABLE\n");    
+            System.out.printf(" Group Name\n Head Writer\n Year Formed\n Subject\n");
+            while (rs.next()) {
+                //Retrieve by column name
+                String GroupName = rs.getString("GroupName");
+                String HeadWriter = rs.getString("HeadWriter");
+                String YearFormed = rs.getString("YearFormed");
+                String Subject = rs.getString("Subject");
+
+                //Display values
+                System.out.printf("\n");
+                System.out.printf(dispNull(GroupName));
+                System.out.printf("\n");
+                System.out.printf(dispNull(HeadWriter));
+                System.out.printf("\n");
+                System.out.printf(dispNull(YearFormed));
+                System.out.printf("\n");
+                System.out.printf(dispNull(Subject));
+                System.out.printf("\n\n");
+            }
+            //CLOSE AND CLEAN ENVIORNMENT
+            rs.close();
+            stmt.close();
+        }
+        
+        //FUNCTION TO DISPLAY BOOKS
+        public static void displayBooks (Connection conn) throws SQLException
+        {
+            Statement stmt = null;
+            String Selectsql = "SELECT GroupName, BookTitle, PublisherName, YearPublished, NumberPages FROM Books";
+            stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(Selectsql);
+
+            System.out.printf("DISPLAYING BOOK TABLE\n");
+            System.out.printf(" Group Name\n Book Title\n Publisher Name\n Year Published\n Number of Pages\n");
+            while (rs.next()) {
+                //Retrieve by column name
+                String GroupName = rs.getString("GroupName");
+                String BookTitle = rs.getString("BookTitle");
+                String PublisherName = rs.getString("PublisherName");
+                String YearPublished = rs.getString("YearPublished");
+                String NumberPages = rs.getString("NumberPages");
+
+                //Display values
+                System.out.printf("\n");
+                System.out.printf(dispNull(GroupName));
+                System.out.printf("\n");
+                System.out.printf(dispNull(BookTitle));
+                System.out.printf("\n");
+                System.out.printf(dispNull(PublisherName));
+                System.out.printf("\n");
+                System.out.printf(dispNull(YearPublished));
+                System.out.printf("\n");
+                System.out.printf(dispNull(NumberPages));
+                System.out.printf("\n\n");
+            }
+            //CLOSE AND CLEAN ENVIORNMENT
+            rs.close();
+            stmt.close();
+        }
+        
+        // FUNCTION TO DISPLAY PUBLISHERS 
+         public static void displayPublishers (Connection conn) throws SQLException
+        {
+            Statement stmt = null;
+            String Selectsql = "SELECT PublisherName, PublisherAddress, PublisherPhone, PublisherEmail FROM Publishers";
+            stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(Selectsql);
+
+            System.out.printf("DISPLAYING PUBLISHER TABLE\n");
+            System.out.printf(" Publisher Name\n Publisher Address\n Publisher Phone\n Publisher Email\n");
+            while (rs.next()) {
+                //Retrieve by column name
+                String PubName = rs.getString("PublisherName");
+                String PubAddress = rs.getString("PublisherAddress");
+                String PubPhone = rs.getString("PublisherPhone");
+                String PubEmail = rs.getString("PublisherEmail");
+
+                //Display values
+                System.out.printf("\n");
+                System.out.printf(dispNull(PubName));
+                System.out.printf("\n");
+                System.out.printf(dispNull(PubAddress));
+                System.out.printf("\n");
+                System.out.printf(dispNull(PubPhone));
+                System.out.printf("\n");
+                System.out.printf(dispNull(PubEmail));
+                System.out.printf("\n\n");
+            }
+            //CLOSE AND CLEAN ENVIORNMENT
+            rs.close();
+            stmt.close();
+        }
 }
