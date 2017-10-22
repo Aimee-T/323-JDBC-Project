@@ -259,4 +259,20 @@ public class JDBC_Proj {
             rs.close();
             stmt.close();
         }
+        
+        public static void insertBook(Connection conn) throws SQLException
+         {
+              Statement stmt = null;
+              System.out.println("Inserting records into the table...");
+              stmt = conn.createStatement();
+
+              String sql = "INSERT INTO Books " +
+                           "VALUES ('Whose Bio?','grace 2', 'Anel Ruiz', 1994, 100)";
+              stmt.executeUpdate(sql);
+              sql = "INSERT INTO Books " +
+                           "VALUES ('Science Fiction Life','Whose the real monster', 'Neil Wong', 1994, 100)";
+              stmt.executeUpdate(sql);
+              System.out.println("Inserted records into the table...");
+              displayBooks(conn);
+         }
 }
