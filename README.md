@@ -8,12 +8,12 @@ You will form groups of two for this project. Your project should allow for inte
 ## TO DO
 * Create a .sql file for the DDL and run this script to create the database, tables, etc.
 * Write a JDBC program to support the following functions:
-  * List all writing groups
-  * List all the data for a group specified by the user
-  * List all publishers
-  * List all the data for a pubisher specified by the user
-  * List all book titles
-  * List all the data for a book specified by the user. 
+  ~~* List all writing groups~~
+  ~~* List all the data for a group specified by the user~~
+  ~~* List all publishers~~
+  ~~* List all the data for a pubisher specified by the user~~
+  ~~* List all book titles~~
+  ~~* List all the data for a book specified by the user.~~
   * This includes all the data for the associated publisher and writing group.
   * Insert a new book
   * Insert a new publisher and update all book published by one publisher to be published by the new pubisher.
